@@ -55,6 +55,17 @@ body.dark #controls button#powerUpBtn:hover {
   background-color: #6C3483;
 }
 
+body.dark #status span,
+body.dark label,
+body.dark select,
+body.dark option {
+  color: white;
+}
+
+body.dark #status {
+  color: white;
+}
+
 img {
   width: 100%
 }
