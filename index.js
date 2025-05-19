@@ -182,7 +182,9 @@ function activatePowerUp()
 
   const unmatchedCards = $(".card").filter(function ()
   {
-    return !$(this).hasClass("flip") && $._data(this, "events")?.onclick;
+    const hasClick = !!$._data(this, "events")?.click;
+    const isFaceDown = !$(this).hasClass("flip");
+    return (hasClick && isFaceDown);
   });
 
 
@@ -191,7 +193,7 @@ function activatePowerUp()
 
   setTimeout(() =>
   {
-    $(".card").removeClass("flip");
+    unmatchedCards.removeClass("flip");
     resetBoard();
   }, 1500);
 }
