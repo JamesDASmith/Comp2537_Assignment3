@@ -6,14 +6,18 @@ body {
   border: 2px tomato solid;
   width: 600px;
   height: 400px;
-  margin: auto;
+  margin: 50px auto;
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 
 .card {
-  width: 33.3%;
+  width: 30%;
+  height: 45%;
   position: relative;
   transition: transform 1s;
   perspective: 1000px;
@@ -31,15 +35,19 @@ img {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  object-fit: contain;
 }
 
 
-.flip {
+.card.flip .card_inner {
   transform: rotateY(180deg);
 }
 
 .card_inner {
-  transform: rotateY(180deg);
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
 }
 
 

@@ -1,6 +1,7 @@
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
+let pokemonPairs = 3;
 
 function resetBoard() 
 {
@@ -8,18 +9,38 @@ function resetBoard()
   lockBoard = false;
 }
 
-function shuffle() {
-  $("#game_grid .card").sort(() => Math.random() - 0.5).appendTo("#game_grid");
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function createCard(src, id) 
+{
+  return
+    <div class="card" data-id="${id}">
+      <div class="card_inner">
+        <img class="front_face" src="${src}" alt=""></img>
+        <img class="back_face" src="/back.webp" alt=""></img>
+      </div>
+    </div>
 }
 
 
-function setup () 
+function setupCards(images) 
 {
-  shuffle();
+  const grid = $("#game_grid");
+  grid.empty();
 
-  $(".card").on(("click"), function () 
+  const doubled = [...images, ...images];
+  const shuffled = shuffleArray(doubled);
+
+  shuffled.forEach((img, index) =>
   {
-    if(lockBoard || $(this).hasClass("flip"))
+    grid.append(createCard(img.src, img.id));
+  });
+
+  $(".card").on("click", function ()
+  {
+    if (lockBoard || $(this).hasClass("flip"))
     {
       return;
     }
@@ -30,25 +51,27 @@ function setup ()
     {
       firstCard = this;
     }
-    else 
+    else
     {
       secondCard = this;
       lockBoard = true;
 
-      let img1 = $(firstCard).find(".front_face").attr("src");
-      let img2 = $(secondCard).find(".front_face").attr("src");
+      const img1 = $(firstCard).find(".front_face").attr("src");
+      const img2 = $(secondCard).find("front_face").attr("src");
 
-      if (firstCard.src === secondCard.src) 
+      if (img1 === img2)
       {
         $(firstCard).off("click");
         $(secondCard).off("click");
         resetBoard();
-      } 
+      }
       else
       {
-        setTimeout(() => {
+        setTimeout(() =>
+        {
           $(firstCard).removeClass("flip");
           $(secondCard).removeClass("flip");
+          resetBoard();
         }, 1000);
       }
     }
