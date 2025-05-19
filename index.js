@@ -111,6 +111,7 @@ function fetchPokemonImages(pairCount = pokemonPairs)
 
 $(document).ready(() =>
 {
-  $("startBtn").on("click", startGame);
-  $("resetBtn").on("click", resetGame);
+  $("#startBtn").on("click", startGame);
+  $("#resetBtn").on("click", resetGame);
+  startGame();
 });
