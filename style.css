@@ -94,3 +94,11 @@ img {
   margin: 0 15px;
   display: inline-block;
 }
+
+#controls button#powerUpBtn {
+  background-color: #6c5ce7;
+}
+
+#controls button#powerUpBtn:hover {
+  background-color: #341f97;
+}

@@ -8,6 +8,8 @@ let matchCount = 0;
 let timer = null;
 let timeRemaining = 60;
 
+let powerUpUsed = false;
+
 let currentPokemonImages = [];
 
 function startGame()
@@ -51,9 +53,12 @@ function setupCards(images)
 {
   clickCount = 0;
   matchCount = 0;
+  powerUpUsed = false;
   resetBoard();
   updateStatus();
   startTimer();
+  
+  $("#powerUpBtn").prop("disabled", true);
 
   const grid = $("#game_grid");
   grid.empty();
@@ -165,6 +170,24 @@ function startTimer()
   }, 1000);
 }
 
+function activatePowerUp()
+{
+  if (powerUpUsed)
+  {
+    return;
+  }
+  powerUpUsed = true;
+  $("#powerUpBtn").prop("disabled", true);
+
+  $(".card").addClass("flip");
+
+  setTimeout(() =>
+  {
+    $(".card").removeClass("flip");
+    resetBoard();
+  }, 1500);
+}
+
 function endGame(won)
 {
   $(".card").off("click");
@@ -183,5 +206,6 @@ $(document).ready(() =>
 {
   $("#startBtn").on("click", startGame);
   $("#resetBtn").on("click", resetGame);
+  $("powerUpBtn").on("click", activatePowerUp)
   startGame();
 });
