@@ -176,14 +176,18 @@ function activatePowerUp()
   {
     return;
   }
+
   powerUpUsed = true;
   $("#powerUpBtn").prop("disabled", true);
 
   $(".card").addClass("flip");
 
+  $("powerUpBtn").prop("disabled", true);
+  $(".card .card_inner").css("transform", "rotateY(180deg)")
+
   setTimeout(() =>
   {
-    $(".card").removeClass("flip");
+    $(".card .card_inner").css("transform", "rotateY(0deg)");
     resetBoard();
   }, 1500);
 }
