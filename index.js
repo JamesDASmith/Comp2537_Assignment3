@@ -180,16 +180,20 @@ function activatePowerUp()
   powerUpUsed = true;
   $("#powerUpBtn").prop("disabled", true);
 
+  const unmatchedCards = $(".card").filter(function ()
+  {
+    return !$(this).hasClass("flip") && $._data(this, "events")?.onclick;
+  });
+
+
+  unmatchedCards.addClass("flip");
+
+
   setTimeout(() =>
   {
-    $(".card").addClass("flip");
-
-    setTimeout(() =>
-    {
-      $(".card").removeClass("flip");
-      resetBoard();
-    }, 1500);
-  }, 50);
+    $(".card").removeClass("flip");
+    resetBoard();
+  }, 1500);
 }
 
 function endGame(won)
