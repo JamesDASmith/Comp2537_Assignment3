@@ -58,7 +58,7 @@ function setupCards(images)
   updateStatus();
   startTimer();
 
-  $("#powerUpBtn").prop("disabled", true);
+  $("#powerUpBtn").prop("disabled", false);
 
   const grid = $("#game_grid");
   grid.empty();
@@ -176,6 +176,9 @@ function activatePowerUp()
   {
     return;
   }
+
+  powerUpUsed = true;
+  $("#powerUpBtn").prop("disabled", true);
 
   setTimeout(() =>
   {
