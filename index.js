@@ -6,7 +6,7 @@ let pokemonPairs = 3;
 let clickCount = 0;
 let matchCount = 0;
 let timer = null;
-let timeRemaining = 60;
+let timeRemaining = 30;
 
 let powerUpUsed = false;
 
@@ -159,7 +159,7 @@ function updateStatus()
 function startTimer()
 {
   clearInterval(timer);
-  timeRemaining = pokemonPairs * 10;
+  timeRemaining = pokemonPairs * 5;
   updateStatus();
 
   timer = setInterval(() =>
