@@ -153,7 +153,7 @@ function updateStatus()
   $("#matched").text(`Matched: ${matchCount}`);
   $("#remaining").text(`Remaining: ${pokemonPairs - matchCount}`);
   $("#total").text(`Total: ${pokemonPairs}`);
-  $("#timer").text(`Clicks: ${timeRemaining} seconds`);
+  $("#timer").text(`Time: ${timeRemaining} seconds`);
 }
 
 function startTimer()
@@ -225,6 +225,6 @@ $(document).ready(() =>
   $("#themeToggle").on("click", toggleTheme);
 
   $("body").addClass("light");
-  
+
   startGame();
 });
