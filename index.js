@@ -177,19 +177,16 @@ function activatePowerUp()
     return;
   }
 
-  powerUpUsed = true;
-  $("#powerUpBtn").prop("disabled", true);
-
-  $(".card").addClass("flip");
-
-  $("powerUpBtn").prop("disabled", true);
-  $(".card .card_inner").css("transform", "rotateY(180deg)")
-
   setTimeout(() =>
   {
-    $(".card .card_inner").css("transform", "rotateY(0deg)");
-    resetBoard();
-  }, 1500);
+    $(".card").addClass("flip");
+
+    setTimeout(() =>
+    {
+      $(".card").removeClass("flip");
+      resetBoard();
+    }, 1500);
+  }, 50);
 }
 
 function endGame(won)
