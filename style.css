@@ -1,29 +1,59 @@
-body {
+body.light {
+  background-color: white;
+  color: black;
   margin: 0px;
 }
 
-#game_grid {
-  border: 2px tomato solid;
-  width: 600px;
-  height: 400px;
-  margin: 50px auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
+body.dark {
+  background-color: black;
+  color: white;
 }
 
+#game_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  max-width: 800px;
+  max-height: 90vh;
+  gap: 10px;
+  margin: 50px auto;
+  padding: 10px;
+  border: 2px tomato solid;
+  overflow-y: auto;
+}
+
+body.dark #game_grid {
+  border-color: #9C27B0;
+}
 
 .card {
-  width: 30%;
-  height: 45%;
   position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   transition: transform 1s;
   perspective: 1000px;
   transform-style: preserve-3d;
 }
 
+body.dark .card {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+body.dark #controls button {
+  background-color: #444;
+  color: white;
+}
+
+body.dark #controls button:hover {
+  background-color: #666;
+}
+
+body.dark #controls button#powerUpBtn {
+  background-color: #8e44ad;
+}
+
+body.dark #controls button#powerUpBtn:hover {
+  background-color: #6C3483;
+}
 
 img {
   width: 100%

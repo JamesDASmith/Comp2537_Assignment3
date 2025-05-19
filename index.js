@@ -33,6 +33,11 @@ function resetBoard()
   lockBoard = false;
 }
 
+function toggleTheme()
+{
+  $("body").toggleClass("dark light");
+}
+
 function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
@@ -216,6 +221,10 @@ $(document).ready(() =>
 {
   $("#startBtn").on("click", startGame);
   $("#resetBtn").on("click", resetGame);
-  $("#powerUpBtn").on("click", activatePowerUp)
+  $("#powerUpBtn").on("click", activatePowerUp);
+  $("#themeToggle").on("click", toggleTheme);
+
+  $("body").addClass("light");
+  
   startGame();
 });
