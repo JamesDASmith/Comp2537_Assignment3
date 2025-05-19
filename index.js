@@ -15,14 +15,14 @@ function shuffleArray(array) {
 
 function createCard(src, id) 
 {
-  return
+  return `
     <div class="card" data-id="${id}">
       <div class="card_inner">
         <img class="front_face" src="${src}" alt=""></img>
         <img class="back_face" src="/back.webp" alt=""></img>
       </div>
     </div>
-}
+`}
 
 
 function setupCards(images) 
@@ -78,4 +78,24 @@ function setupCards(images)
   });
 }
 
-$(document).ready(setup)
+function fetchPokemonImages(pairCount = pokemonPairs)
+{
+  const maxId = 1025;
+  const ids = shuffleArray([...Array(maxId).keys()].slice(1).slice(0, pairCount));
+  const requests = ids.map(id =>
+  {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      .then(res => res.json())
+      .then(data => ({
+        id: data.id,
+        src: data.sprites.other["official-artwork"].front_default
+      }))
+  });
+
+  Promise.all(requests).then(setupCards);
+}
+
+$(document).ready(() =>
+{
+  fetchPokemonImages(pokemonPairs);
+});
