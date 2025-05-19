@@ -3,6 +3,19 @@ let secondCard = null;
 let lockBoard = false;
 let pokemonPairs = 3;
 
+let currentPokemonImages = [];
+
+function startGame()
+{
+  fetchPokemonImages(pokemonPairs);
+}
+
+function resetGame()
+{
+  fetchPokemonImages(pokemonPairs);
+}
+
+
 function resetBoard() 
 {
   [firstCard, secondCard] = [null, null];
@@ -98,5 +111,6 @@ function fetchPokemonImages(pairCount = pokemonPairs)
 
 $(document).ready(() =>
 {
-  fetchPokemonImages(pokemonPairs);
+  $("startBtn").on("click", startGame);
+  $("resetBtn").on("click", resetGame);
 });
