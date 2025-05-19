@@ -75,3 +75,22 @@ img {
 #controls button:hover {
   background-color: darkred;
 }
+
+#controls select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+#status {
+  text-align: center;
+  font-size: 18px;
+  margin: 10px 0;
+  color: #333;
+}
+
+#status span {
+  margin: 0 15px;
+  display: inline-block;
+}

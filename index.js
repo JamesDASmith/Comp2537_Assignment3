@@ -3,15 +3,24 @@ let secondCard = null;
 let lockBoard = false;
 let pokemonPairs = 3;
 
+let clickCount = 0;
+let matchCount = 0;
+let timer = null;
+let timeRemaining = 60;
+
 let currentPokemonImages = [];
 
 function startGame()
 {
+  const selectedPairs = parseInt($("#difficulty").val());
+  pokemonPairs = selectedPairs;
   fetchPokemonImages(pokemonPairs);
 }
 
 function resetGame()
 {
+  const selectedPairs = parseInt($("#difficulty").val());
+  pokemonPairs = selectedPairs;
   fetchPokemonImages(pokemonPairs);
 }
 
@@ -40,6 +49,12 @@ function createCard(src, id)
 
 function setupCards(images) 
 {
+  clickCount = 0;
+  matchCount = 0;
+  resetBoard();
+  updateStatus();
+  startTimer();
+
   const grid = $("#game_grid");
   grid.empty();
 
@@ -57,6 +72,9 @@ function setupCards(images)
     {
       return;
     }
+
+    clickCount++
+    updateStatus();
 
     $(this).addClass("flip");
 
@@ -76,6 +94,16 @@ function setupCards(images)
       {
         $(firstCard).off("click");
         $(secondCard).off("click");
+
+        matchCount++;
+        updateStatus();
+
+        if(matchCount == pokemonPairs)
+        {
+          clearInterval(timer);
+          endGame(true);
+        }
+
         resetBoard();
       }
       else
@@ -107,6 +135,48 @@ function fetchPokemonImages(pairCount = pokemonPairs)
   });
 
   Promise.all(requests).then(setupCards);
+}
+
+function updateStatus()
+{
+  $("#clicks").text(`Clicks: ${clickCount}`);
+  $("#matched").text(`Matched: ${matchCount}`);
+  $("#remaining").text(`Remaining: ${pokemonPairs - matchCount}`);
+  $("#total").text(`Total: ${pokemonPairs}`);
+  $("#timer").text(`Clicks: ${timeRemaining} seconds`);
+}
+
+function startTimer()
+{
+  clearInterval(timer);
+  timeRemaining = pokemonPairs * 10;
+  updateStatus();
+
+  timer = setInterval(() =>
+  {
+    timeRemaining--;
+    updateStatus();
+
+    if(timeRemaining <= 0)
+    {
+      clearInterval(timer);
+      endGame(false);
+    }
+  }, 1000);
+}
+
+function endGame(won)
+{
+  $(".card").off("click");
+
+  if(won)
+  {
+    alert("You Won!");
+  }
+  else
+  {
+    alert("You Lose!")
+  }
 }
 
 $(document).ready(() =>
