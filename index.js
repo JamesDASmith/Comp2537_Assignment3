@@ -57,7 +57,7 @@ function setupCards(images)
       lockBoard = true;
 
       const img1 = $(firstCard).find(".front_face").attr("src");
-      const img2 = $(secondCard).find("front_face").attr("src");
+      const img2 = $(secondCard).find(".front_face").attr("src");
 
       if (img1 === img2)
       {
@@ -81,10 +81,11 @@ function setupCards(images)
 function fetchPokemonImages(pairCount = pokemonPairs)
 {
   const maxId = 1025;
-  const ids = shuffleArray([...Array(maxId).keys()].slice(1).slice(0, pairCount));
+  const ids = shuffleArray([...Array(maxId).keys()].slice(1)).slice(0, pairCount);
+
   const requests = ids.map(id =>
   {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    return fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then(res => res.json())
       .then(data => ({
         id: data.id,
